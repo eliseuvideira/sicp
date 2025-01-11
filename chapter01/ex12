@@ -10,3 +10,14 @@
 (run!
  (fn [[n k]] (println (pascal n k)))
  (partition 2 numbers))
+
+;; (println (pascal 50 25))
+
+(def pascal-memo
+  (memoize
+   (fn [n k]
+     (cond (= k 0) 1
+           (= k n) 1
+           :else (+ (pascal-memo (- n 1) (- k 1)) (pascal-memo (- n 1) k))))))
+
+(println (pascal-memo 50 25))
