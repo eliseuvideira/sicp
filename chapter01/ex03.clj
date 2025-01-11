@@ -1,4 +1,4 @@
-#!/usr/bin/env clojure -M
+#!/usr/bin/env bb
 
 (defn square [x]
   (* x x))

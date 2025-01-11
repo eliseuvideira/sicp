@@ -1,7 +1,12 @@
 #!/usr/bin/env bb
 
+(defn factorial [x]
+  (if (= x 1)
+    x
+    (* x (factorial (- x 1)))))
+
 (defn -main [& args]
   (let [numbers (map #(Integer/parseInt %) args)]
-    (println (reduce + numbers))))
+    (run! println (map factorial numbers))))
 
 (apply -main *command-line-args*)

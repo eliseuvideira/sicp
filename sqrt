@@ -1,4 +1,4 @@
-#!/usr/bin/env clojure -M
+#!/usr/bin/env bb
 
 (defn avg [x y]
   (/ (+ x y) 2))

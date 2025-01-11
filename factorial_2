@@ -1,0 +1,15 @@
+#!/usr/bin/env bb
+
+(defn fact-iter [product counter limit]
+  (if (> counter limit)
+    product
+    (recur (* counter product) (+ counter 1) limit)))
+
+(defn factorial [x]
+  (fact-iter 1 1 x))
+
+(defn -main [& args]
+  (let [numbers (map #(Integer/parseInt %) args)]
+    (run! println (map factorial numbers))))
+
+(apply -main *command-line-args*)

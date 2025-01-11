@@ -1,4 +1,4 @@
-#!/usr/bin/env clojure -M
+#!/usr/bin/env bb
 
 486
 (+ 137 349)

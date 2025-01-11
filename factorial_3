@@ -1,0 +1,17 @@
+#!/usr/bin/env sbcl --script
+
+(defun fact-iter (product counter limit)
+  (if (> counter limit)
+      product
+      (fact-iter (* counter product)
+                 (+ counter 1)
+                 limit)))
+
+(defun factorial (x)
+  (fact-iter 1 1 x))
+
+(defun main ()
+  (loop for arg in (cdr sb-ext:*posix-argv*)
+        do (format t "~a~%" (factorial (parse-integer arg)))))
+
+(main)
