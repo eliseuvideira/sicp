@@ -7,4 +7,6 @@
         (= k n) 1
         :else (+ (pascal (- n 1) (- k 1)) (pascal (- n 1) k))))
 
-(run! #(println (pascal (nth % 0) (nth % 1))) (partition 2 1 numbers))
+(run!
+ (fn [[n k]] (println (pascal n k)))
+ (partition 2 numbers))
