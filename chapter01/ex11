@@ -1,0 +1,24 @@
+#!/usr/bin/env bb
+
+(def numbers (map #(Integer/parseInt %) *command-line-args*))
+
+(defn f [n]
+  (if (< n 3)
+    n
+    (+ (f (- n 1))
+       (f (- n 2))
+       (f (- n 3)))))
+
+(run! println (map f numbers))
+
+(defn f-iter [x y z limit]
+  (if (= limit 3)
+    z
+    (f-iter y z (+ x y z) (dec limit))))
+
+(defn f [n]
+  (if (< n 3)
+    n
+    (f-iter 1 2 3 n)))
+
+(run! println (map f numbers))
