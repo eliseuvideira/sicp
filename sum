@@ -1,0 +1,7 @@
+#!/usr/bin/env clojure -M
+
+(defn -main [& args]
+  (let [numbers (map #(Integer/parseInt %) args)]
+    (println (reduce + numbers))))
+
+(apply -main *command-line-args*)
