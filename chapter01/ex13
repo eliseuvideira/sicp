@@ -1,0 +1,53 @@
+#!/usr/bin/env bb
+
+;; (def numbers (map #(Integer/parseInt %) *command-line-args*))
+(def numbers (range 30))
+
+(def phi
+  (/ (+ 1 (Math/sqrt 5)) 2))
+
+(def psi
+  (/ (- 1 (Math/sqrt 5)) 2))
+
+(println phi)
+(println psi)
+
+(defn fib [x]
+  (cond (< x 2) x
+        :else (+ (fib (- x 1)) (fib (- x 2)))))
+
+(run!
+ (fn [x] (println (fib x)))
+ numbers)
+
+(defn pow [product value count limit]
+  (if (= count limit)
+    product
+    (pow (* product value) value (inc count) limit)))
+
+(defn fib-approx [x]
+  (/ (pow 1 phi 0 x) (Math/sqrt 5)))
+
+(run!
+ (fn [x] (println (fib-approx x)))
+ numbers)
+
+; fib(30) = 514229
+; fib-approx(30) = 514228.99999961146
+
+(println (Math/pow phi 30))
+; negative section
+; phi ** 30 = 1860497.9999994645
+(println (Math/pow psi 30))
+; positive section
+; psi ** 30 = 5.374904998555718E-7
+(println (Math/pow psi 1))
+(println (Math/pow psi 2))
+(println (Math/pow psi 3))
+; psi ** 3 = -0.23606797749978975
+(println (Math/pow psi 4))
+; psi ** 4 = 0.14589803375031551
+
+; phi grows with n
+; psi decreases with n
+; for n > 2, |psi| < 0.5
