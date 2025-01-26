@@ -1,0 +1,67 @@
+#!/usr/bin/env bb
+
+(defn cube [x]
+  (* x x x))
+
+(defn p [x]
+  (- (* 3 x) (* 4 (cube x))))
+
+(defn sine [angle]
+  (if (not (> (abs angle) 0.1))
+    angle
+    (p (sine (/ angle 3.0)))))
+
+(println (sine 12.15))
+
+;; a. How many times is the procedure p applied when (sine
+;; 12.15) is evaluated?
+
+; (p (sine (/ 12.15 3.0)))
+; (p (sine 4.05))
+; (p (p (sine (/ 4.05 3.0))))
+; (p (p (sine 1.35)))
+; (p (p (p (sine (/ 1.35 3.0)))))
+; (p (p (p (sine 0.45))))
+; (p (p (p (p (sine (/ 0.45 3.0))))))
+; (p (p (p (p (sine 0.15)))))
+; (p (p (p (p (p (sine (/ 0.15 3)))))))
+; (p (p (p (p (p (sine 0.05))))))
+; (p (p (p (p (p 0.05)))))
+
+; p is applied 5 times
+
+;; b. What is the order of growth in space and number of
+;; steps (as a function of a) used by the process generated
+;; by the sine procedure when (sine a) is evaluated?
+
+; a / 3
+; a / 9
+; a / 27
+; ...
+
+; a / (3 ** n) <= 0.1
+; a / (3 ** n) = 0.1
+; a = 0.1 * 3 ** n
+; 10a = 3 ** n
+; n = log3 10a
+
+; (/ angle 3.0) -> n + 1
+;
+; (- (* 3 x) (* 4 (cube x)))
+; (- (* 3 x) (* 4 (* x x x)))
+; (1 (  1  ) (  1 (  2    ))) -> 5 * n
+; -> 5 * n
+
+; steps -> n + 1 + 5n
+; steps -> 6n + 1
+
+; (p (p (p (p (p (/ (/ (/ (/ (/ 12.5 3.0) 3.0) 3.0) 3.0) 3.0))))))
+; -> n
+
+; n = log₃(10a)
+; T(n) = 6n + 1
+; S(n) = n
+
+; n = Θ(log a)
+; T(a) = Θ(log a)
+; S(a) = Θ(log a)

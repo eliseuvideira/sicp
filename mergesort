@@ -1,0 +1,30 @@
+#!/usr/bin/env bb
+
+(def numbers
+  (if (seq *command-line-args*)
+    (map parse-long *command-line-args*)
+    (map parse-long
+         (-> (slurp *in*)
+             clojure.string/trim
+             (clojure.string/split #"\s+")))))
+
+(defn merge [xs ys]
+  (let [x (first xs)
+        y (first ys)]
+    (cond
+      (empty? xs) ys
+      (empty? ys) xs
+      (< x y) (cons x (merge (rest xs) ys))
+      :else (cons y (merge xs (rest ys))))))
+
+(defn mergesort [numbers]
+  (let [n (count numbers)]
+    (cond
+      (zero? n) []
+      (= n 1) [(first numbers)]
+      :else (let [mid (quot n 2)
+                  left (mergesort (take mid numbers))
+                  right (mergesort (drop mid numbers))]
+              (merge left right)))))
+
+(run! println (mergesort numbers))
