@@ -1,0 +1,16 @@
+#!/usr/bin/env bb
+
+(def dx 0.00001)
+
+(defn deriv [g]
+  (fn [x]
+    (/ (- (g (+ x dx)) (g x))
+       dx)))
+
+(defn cube [x]
+  (* x x x))
+
+(println ((deriv cube) 5))
+
+; (/ (cube (+ 5 0.00001)) 5) 0.00001)
+; 75.00014999664018
